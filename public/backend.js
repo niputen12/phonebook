@@ -79,7 +79,12 @@ function edit(uid,uphone,uname)
 }
 //==============================================DELETING RECORDS====================================================
 function remove(uid){
-	 $.ajax({
+	$.confirm({
+    title: 'Confirm!',
+    content: 'Are you sure you want to Delete?!',
+    buttons: {
+        confirm: function () {
+        	 $.ajax({
                 url: 'https://joshphonebook.herokuapp.com/delete/'+uid,
                 type: 'delete',                
                 success: function(res) {
@@ -90,7 +95,14 @@ function remove(uid){
                 	 $("#wew tr").remove();
 					 getrecords();			                          	
                 }
-        });
+        });           
+        },
+        cancel: function () {
+           
+        }
+     }
+});
+	
 }
 
 
