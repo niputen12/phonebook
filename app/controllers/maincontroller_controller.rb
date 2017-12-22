@@ -33,8 +33,8 @@ class MaincontrollerController < ApplicationController
 	end
 
 	def updateUser
-		update = Phonerecord.where(number: params[:number])
-		if update.blank?
+		
+		
 
 			update = Phonerecord.find(params[:id])
 
@@ -44,9 +44,7 @@ class MaincontrollerController < ApplicationController
 				render json: {status: 'Error', message: 'error'},status: :unprocessable_entity
 			end
 
-		else
-			render json: {message: 'Already Existing'},status: :ok
-		end
+		
 		
 
 		

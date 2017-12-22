@@ -7,18 +7,34 @@ $(document).ready(function()
 	localStorage.setItem('phone',phone);
 	$('.submit-btn').click(function()
 	{
-		$.post('https://joshphonebook.herokuapp.com/new',
+		if($('.user-name').val()=="" || $('.user-name').val()===null|| $('.user-name').val()===undefined)
 		{
-			number: $('.user-number').val(),
-			name:$('.user-name').val()
-		}).done(function(res)
+			$.alert({
+					    title: 'Alert!',
+					    content: 'Name Cannot Be blank!'
+					});
+		}
+		else if($('.user-number').val()=="" || $('.user-number').val()===null|| $('.user-number').val()===undefined)
 		{
-				console.log(res);
-				 $("#wew tr").remove();
-				 getrecords();
-				$('.user-name').val("");
-				$('.user-number').val("");
-		});
+			$.alert({
+					    title: 'Alert!',
+					    content: 'Number Cannot Be blank!'
+					});
+		}
+		else
+		{
+			$.post('https://joshphonebook.herokuapp.com/new',
+			{
+				number: $('.user-number').val(),
+				name:$('.user-name').val()
+			}).done(function(res)
+			{			
+					$("#table1 td").remove();
+					getrecords();
+					$('.user-name').val("");
+					$('.user-number').val("");
+			});
+		}
 	});
 });
 //========================================GETTING RECORDS FROM DATABASE USING API====================================
@@ -29,8 +45,7 @@ var uname;
 var uphone;
 var count=0;
 	$.get('http://joshphonebook.herokuapp.com/records',function(data)
-						        {
-						          console.log(data);
+						        {						         
  									$.each(data.data, function(i, d) 
  									{
 	 									uid = data.data[count].id;
@@ -44,9 +59,9 @@ var count=0;
 						             	 });
 							             row+='<td> <button type="button" class = " glyphicon glyphicon-edit btn btn-primary" onclick="edit(\'' + uid + '\',\'' + uphone + '\',\'' + uname + '\');"> EDIT </button> <button type="button" class="btn btn-warning glyphicon glyphicon-remove" onclick="remove(\'' + uid + '\');"> Delete </button></td>';
 							             row+='</tr>';
-							             $('#wew').append(row);
+							             $('#table1').append(row);
 						            });
-						           		 $('#wew').DataTable();
+						           		 $('#table1').DataTable();
 						          	
 						        });
 }
@@ -58,23 +73,40 @@ function edit(uid,uphone,uname)
 	$('.edit-number').val(uphone);
 	$('#edit-btn').click(function()
 	{
-		  $.ajax({
+		if($('.edit-name').val()=="" || $('.edit-name').val()===null|| $('.edit-name').val()===undefined)
+		{
+			$.alert({
+					    title: 'Alert!',
+					    content: 'Name Cannot Be blank!'
+					});
+		}
+		else if($('.edit-number').val()=="" || $('.edit-number').val()===null|| $('.edit-number').val()===undefined)
+		{
+			$.alert({
+					    title: 'Alert!',
+					    content: 'Number Cannot Be blank!'
+					});
+		}
+		else
+		{
+			  $.ajax({
                 url: 'https://joshphonebook.herokuapp.com/updateUser/'+uid,
                 type: 'PATCH',
                 data: {name: $('.edit-name').val(),
                 	   number: $('.edit-number').val(),
                 	      _method: "PATCH"},
                 success: function(res) 
-                {
-                	
+                {               	
                 	$.alert({
 					    title: 'Alert!',
 					    content: res.message,
 					});
-                	 $("#wew tr").remove();
+                	 $("#table1 td").remove();
 					 getrecords();               	 	
                 }
          	});
+		}
+		
 	});
 }
 //==============================================DELETING RECORDS====================================================
@@ -92,10 +124,11 @@ function remove(uid){
 					    title: 'Alert!',
 					    content: res.message,
 					});
-                	 $("#wew tr").remove();
+                	 $("#table1 tr").remove();
 					 getrecords();			                          	
                 }
-        });           
+        });
+           
         },
         cancel: function () {
            
