@@ -9,7 +9,7 @@ $(document).ready(function(){
 
 	$('.submit-btn').click(function(){
 
-		$.post('http://localhost:3000/new',{
+		$.post('https://joshphonebook.herokuapp.com/new',{
 
 			number: $('.user-number').val(),
 			name:$('.user-name').val()
@@ -37,7 +37,7 @@ var uid;
 var uname;
 var uphone;
 var count=0;
-	$.get('http://localhost:3000/records',function(data)
+	$.get('http://joshphonebook.herokuapp.com/records',function(data)
 						        {
 						          console.log(data);
  									$.each(data.data, function(i, d) {
@@ -69,7 +69,7 @@ function edit(uid,uphone,uname)
 	$('#edit-btn').click(function(){
 
 		  $.ajax({
-                url: 'http://localhost:3000/updateUser/'+uid,
+                url: 'https://joshphonebook.herokuapp.com/updateUser/'+uid,
                 type: 'PATCH',
                 data: {name: $('.edit-name').val(),
                 	   number: $('.edit-number').val(),
@@ -93,7 +93,7 @@ function edit(uid,uphone,uname)
 }
 function remove(uid){
 	 $.ajax({
-                url: 'http://localhost:3000/delete/'+uid,
+                url: 'https://joshphonebook.herokuapp.com/delete/'+uid,
                 type: 'delete',
                 
                 success: function(res) {
