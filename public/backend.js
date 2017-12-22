@@ -35,8 +35,9 @@ $(document).ready(function()
 					});
 					
 				    $('#table1 tr').remove();
-				    getrecords();
+				  
 				   $('#table1').find('thead').append('<tr><th>ID</th><th>Name</th><th>Mobile Number</th><th>Action</th></tr>');
+				     getrecords();
 					$('.user-name').val("");
 					$('.user-number').val("");
 			});
