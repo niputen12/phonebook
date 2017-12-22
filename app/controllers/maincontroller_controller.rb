@@ -13,7 +13,7 @@ class MaincontrollerController < ApplicationController
 			register = Phonerecord.new(record_params)
 
 			if register.save
-				render json: {status: 'Success', message: 'power', data:register},status: :ok
+				render json: {status: 'Success', message: 'Success', data:register},status: :ok
 			else
 				render json: {status: 'Error', message: 'error', data:Phonerecord.error},status: :unprocessable_entity
 			end
@@ -28,7 +28,7 @@ class MaincontrollerController < ApplicationController
 	end
 
 	def getUserInfo
-		 user = Phonerecord.select('id','name','number')
+		 user = Phonerecord.select('id','name','number').order("id")
 		 render json:{data: user},status: :ok
 	end
 

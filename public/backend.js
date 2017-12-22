@@ -29,8 +29,14 @@ $(document).ready(function()
 				name:$('.user-name').val()
 			}).done(function(res)
 			{			
-					$("#table1 td").remove();
-					getrecords();
+				$.alert({
+					    title: 'Alert!',
+					    content: res.message
+					});
+					
+				    $('#table1 tr').remove();
+				    getrecords();
+				   $('#table1').find('thead').append('<tr><th>ID</th><th>Name</th><th>Mobile Number</th><th>Action</th></tr>');
 					$('.user-name').val("");
 					$('.user-number').val("");
 			});
@@ -102,7 +108,7 @@ function edit(uid,uphone,uname)
 					    content: res.message,
 					});
                 	 $("#table1 td").remove();
-					 getrecords();               	 	
+					 getrecords(); 					         	 	
                 }
          	});
 		}
@@ -125,7 +131,8 @@ function remove(uid){
 					    content: res.message,
 					});
                 	 $("#table1 tr").remove();
-					 getrecords();			                          	
+					 getrecords();
+					 $('#table1').find('thead').append('<tr><th>ID</th><th>Name</th><th>Mobile Number</th><th>Action</th></tr>');			                          	
                 }
         });
            
